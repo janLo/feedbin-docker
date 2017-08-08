@@ -24,4 +24,8 @@ cd /opt/feedbin && rake db:setup
 
 which sets up the Postgres database for first time usage.
 
-Visit Feedbin at localhost:9292/
+Visit Feedbin at [localhost:9292/](localhost:9292)
+
+### Hint
+
+You might also want to edit the User model to only allow certain emails...
