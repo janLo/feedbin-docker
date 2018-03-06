@@ -1,22 +1,53 @@
-FROM ubuntu:14.04
-MAINTAINER Joseph Scavone
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update ;\
-    apt-get install -y software-properties-common ;\
-    add-apt-repository ppa:brightbox/ruby-ng-experimental ;\
-    apt-get update ;\
-    apt-get install -y ruby2.3 ruby2.3-dev build-essential curl libreadline-dev libcurl4-gnutls-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libssl-dev git-core libmagickwand-dev libopencv-dev python-opencv postgresql-client
+FROM ruby:alpine3.4
+MAINTAINER Jan Losinski
 
 RUN \
-    cd /opt ;\
-    git clone https://github.com/feedbin/feedbin.git ;\
-    cd feedbin ;\
-    gem install bundler redis
+	apk update && \
+	apk add \
+		imagemagick \
+		libcurl \
+		openssl \
+		postgresql-libs
 
-RUN \
-    cd /opt/feedbin ;\
-    bundle
+
+RUN	apk add  --virtual .feedbin-builddeps \
+		autoconf \
+		bison \
+		bzip2 \
+		bzip2-dev \
+		ca-certificates \
+		coreutils \
+		curl-dev \
+		g++ \
+		gcc \
+		gdbm-dev \
+		git \
+		glib-dev \
+		imagemagick-dev \
+		libc-dev \
+		libffi-dev \
+		libidn-dev \
+		libxml2-dev \
+		libxslt-dev \
+		linux-headers \
+		make \
+		ncurses-dev \
+		openssl-dev \
+		postgresql-dev \
+		procps \
+		procps \
+		readline-dev \
+		tar \
+		xz \
+		yaml-dev \
+		zlib-dev \
+		&& \
+	mkdir /opt && \
+	cd /opt && \
+	git clone https://github.com/feedbin/feedbin.git && \
+	cd /opt/feedbin && \
+	bundle && \
+	apk del .feedbin-builddeps
 
 ADD config/database.yml /opt/feedbin/config/database.yml
 ADD config/environments/production.rb /opt/feedbin/config/environments/production.rb
