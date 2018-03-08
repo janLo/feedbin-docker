@@ -33,7 +33,7 @@ feedbin:
     SMTP_ADDRESS: **changeme**
     SMTP_PASSWORD: **changeme**
     SMTP_USERNAME: **changeme**
-  image: scavone/feedbin:latest
+  image: janlo/feedbin-docker:latest
   links:
   - redis:redis
   - postgres:postgres
@@ -51,7 +51,7 @@ postgres:
 feedbin-refresher:
   environment:
     REDIS_URL: redis://redis:6379
-  image: scavone/feedbin-refresher:latest
+  image: janlo/feedbin-refresher:latest
   links:
   - redis:redis
 elasticsearch:
