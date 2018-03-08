@@ -1,4 +1,4 @@
-FROM ruby:slim-stretch
+FROM ruby:2.3-slim-stretch
 MAINTAINER Jan Losinski
 ENV DEBIAN_FRONTEND noninteractive
 
